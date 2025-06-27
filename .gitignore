@@ -4,7 +4,7 @@ __pycache__/
 *.pyo
 
 # Ignore virtual environments
-venv/
+pyvenv/
 env/
 .venv/
 
@@ -15,3 +15,4 @@ env/
 # Ignore logs and databases
 *.log
 *.sqlite3
+.env
