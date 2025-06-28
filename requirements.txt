@@ -1,2 +1,4 @@
 sqlalchemy
 langchain_community
+utils
+grandalf

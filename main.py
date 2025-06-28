@@ -1,8 +1,8 @@
 from langsmith import utils
 import os 
 from dotenv import load_dotenv
-from get_database import get_engine_for_chinook_db
-from langchain_community.utilities.sql_database import SQLDatabase
+from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
+from music_catalog.state_graph import music_catalog_subagent
 
 
 load_dotenv()
@@ -12,13 +12,21 @@ os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
 os.environ["LANGSMITH_TRACING"] = os.getenv("LANGSMITH_TRACING")  # Enables LangSmith tracing
 os.environ["LANGSMITH_PROJECT"] = os.getenv("LANGSMITH_PROJECT")
 
-# Check and print whether LangSmith tracing is currently enabled
-print(f"LangSmith tracing is enabled: {utils.tracing_is_enabled()}")
+import uuid
 
-# Initialize the database engine with the Chinook sample data
-engine = get_engine_for_chinook_db()
+# Generate a unique thread ID for this conversation session
+thread_id = uuid.uuid4()
 
-# Create a LangChain SQLDatabase wrapper around the engine
-# This provides convenient methods for database operations and query execution
-db = SQLDatabase(engine)
+# Define the user's question about music recommendations
+question = "I like the Rolling Stones. What songs do you recommend by them or by other artists that I might like?"
 
+# Set up configuration with the thread ID for maintaining conversation context
+config = {"configurable": {"thread_id": thread_id}}
+
+# Invoke the music catalog subagent with the user's question
+# The agent will use its tools to search for Rolling Stones music and provide recommendations
+result = music_catalog_subagent.invoke({"messages": [HumanMessage(content=question)]}, config=config)
+
+# Display all messages from the conversation in a formatted way
+for message in result["messages"]:
+   message.pretty_print()
