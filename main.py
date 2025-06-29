@@ -5,6 +5,7 @@ from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
 from music_catalog.state_graph import music_catalog_subagent
 from invoice_info.tools import invoice_information_subagent
 from Supervisor import supervisor_prebuilt
+from state_graph_end import multi_agent_verify_graph
 
 load_dotenv()
 
@@ -50,18 +51,35 @@ import uuid
 #     message.pretty_print()
 
 # Generate a unique thread ID for this conversation session
+# thread_id = uuid.uuid4()
+
+# # Define a question that tests both invoice and music catalog capabilities
+# question = "My customer ID is 1. How much was my most recent purchase? What albums do you have by U2?"
+
+# # Set up configuration with the thread ID for maintaining conversation context
+# config = {"configurable": {"thread_id": thread_id}}
+
+# # Invoke the supervisor workflow with the multi-part question
+# # The supervisor will route to appropriate subagents for invoice and music queries
+# result = supervisor_prebuilt.invoke({"messages": [HumanMessage(content=question)]}, config=config)
+
+# # Display all messages from the conversation in a formatted way
+# for message in result["messages"]:
+#     message.pretty_print()
+
 thread_id = uuid.uuid4()
-
-# Define a question that tests both invoice and music catalog capabilities
-question = "My customer ID is 1. How much was my most recent purchase? What albums do you have by U2?"
-
-# Set up configuration with the thread ID for maintaining conversation context
+question = "How much was my most recent purchase?"
 config = {"configurable": {"thread_id": thread_id}}
 
-# Invoke the supervisor workflow with the multi-part question
-# The supervisor will route to appropriate subagents for invoice and music queries
-result = supervisor_prebuilt.invoke({"messages": [HumanMessage(content=question)]}, config=config)
+result = multi_agent_verify_graph.invoke({"messages": [HumanMessage(content=question)]}, config=config)
+for message in result["messages"]:
+    message.pretty_print()
 
-# Display all messages from the conversation in a formatted way
+
+thread_id = uuid.uuid4()
+question = "How much was my most recent purchase?"
+config = {"configurable": {"thread_id": thread_id}}
+
+result = multi_agent_verify_graph.invoke({"messages": [HumanMessage(content=question)]}, config=config)
 for message in result["messages"]:
     message.pretty_print()
