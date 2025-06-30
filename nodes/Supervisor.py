@@ -4,12 +4,9 @@ from langchain_openai import ChatOpenAI
 import os
 from core.state import State
 from core.memory import checkpointer, in_memory_store
+from llm.llm_provider import llm_provider
 
-
-llm = ChatOpenAI(
-    model="gpt-3.5-turbo",  # or "gpt-4o", "gpt-4-turbo", etc.
-    openai_api_key=os.getenv("OPENAI_API_KEY")
-)
+llm = llm_provider()
 
 supervisor_prompt = """You are an expert customer support assistant for a digital music store. 
 You are dedicated to providing exceptional service and ensuring customer queries are answered thoroughly. 
@@ -46,6 +43,3 @@ supervisor_prebuilt = supervisor_prebuilt_workflow.compile(
     checkpointer=checkpointer, 
     store=in_memory_store
 )
-
-# Display the compiled supervisor graph structure
-print(supervisor_prebuilt.get_graph().draw_ascii())

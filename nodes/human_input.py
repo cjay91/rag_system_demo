@@ -6,13 +6,11 @@ from langchain_core.runnables import RunnableConfig
 from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
 import ast
 from database.db import get_database
+from llm.llm_provider import llm_provider
 
 db = get_database()
 
-llm = ChatOpenAI(
-    model="gpt-3.5-turbo",  # or "gpt-4o", "gpt-4-turbo", etc.
-    openai_api_key=os.getenv("OPENAI_API_KEY")
-)
+llm = llm_provider()
 
 class UserInput(BaseModel):
     """Schema for parsing user-provided account information."""

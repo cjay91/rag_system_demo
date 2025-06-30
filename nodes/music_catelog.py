@@ -11,8 +11,11 @@ from langgraph.graph import StateGraph, START, END
 from core.state import State
 from core.memory import checkpointer, in_memory_store
 from langchain_core.runnables import RunnableConfig
+from llm.llm_provider import llm_provider
 
 db = get_database()
+
+llm = llm_provider()
 
 @tool
 def get_albums_by_artist(artist: str):
@@ -237,10 +240,6 @@ def should_continue(state: State, config: RunnableConfig):
 # Create a list of all music-related tools for the agent
 music_tools = [get_albums_by_artist, get_tracks_by_artist, get_songs_by_genre, check_for_songs]
 
-llm = ChatOpenAI(
-    model="gpt-3.5-turbo",  # or "gpt-4o", "gpt-4-turbo", etc.
-    openai_api_key=os.getenv("OPENAI_API_KEY")
-)
 # Bind the music tools to the language model for use in the ReAct agent
 llm_with_music_tools = llm.bind_tools(music_tools)
 

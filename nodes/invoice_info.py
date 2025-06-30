@@ -6,8 +6,11 @@ from core.state import State
 from core.memory import checkpointer, in_memory_store
 from langchain_core.runnables import RunnableConfig
 from database.db import get_database
+from llm.llm_provider import llm_provider
 
 db = get_database()
+
+llm = llm_provider()
 
 @tool 
 def get_invoices_by_customer_sorted_by_date(customer_id: str) -> list[dict]:
@@ -96,11 +99,6 @@ invoice_subagent_prompt = """
     You may have additional context that you should use to help answer the customer's query. It will be provided to you below:
     """
 
-
-llm = ChatOpenAI(
-    model="gpt-3.5-turbo",  # or "gpt-4o", "gpt-4-turbo", etc.
-    openai_api_key=os.getenv("OPENAI_API_KEY")
-)
 # Create the invoice information subagent using LangGraph's pre-built ReAct agent
 # This agent specializes in handling customer invoice queries and billing information
 invoice_information_subagent = create_react_agent(
