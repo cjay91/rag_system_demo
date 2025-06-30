@@ -4,15 +4,11 @@ from database.db import get_database
 from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
 from langchain_core.runnables import RunnableConfig
 from core.state import State
-from music_catalog.nodes import llm_with_music_tools
 from langgraph.prebuilt import ToolNode
-from music_catalog.tools import get_albums_by_artist,get_songs_by_genre,get_tracks_by_artist,check_for_songs
 from langchain_openai import ChatOpenAI
 import os
 from langgraph.graph import StateGraph, START, END
 from core.state import State
-from music_catalog.music_assistant import music_assistant
-from music_catalog.nodes import music_tool_node
 from core.memory import checkpointer, in_memory_store
 from langchain_core.runnables import RunnableConfig
 

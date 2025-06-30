@@ -1,7 +1,5 @@
 from langgraph.graph import StateGraph, START, END
 from core.state import State
-from music_catalog.music_assistant import music_assistant
-from music_catalog.nodes import music_tool_node
 from core.memory import checkpointer, in_memory_store
 from langchain_core.runnables import RunnableConfig
 from nodes.human_input import human_input, verify_info, should_interrupt
