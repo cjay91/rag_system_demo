@@ -1,13 +1,13 @@
 from langgraph.graph import StateGraph, START, END
-from state import State
+from core.state import State
 from music_catalog.music_assistant import music_assistant
 from music_catalog.nodes import music_tool_node
-from memory import checkpointer, in_memory_store
+from core.memory import checkpointer, in_memory_store
 from langchain_core.runnables import RunnableConfig
-from human_input import human_input, verify_info, should_interrupt
-from Supervisor import supervisor_prebuilt
+from nodes.human_input import human_input, verify_info, should_interrupt
+from nodes.Supervisor import supervisor_prebuilt
 from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
-from db import get_database
+from database.db import get_database
 
 # Create a new StateGraph instance for the multi-agent workflow with verification
 multi_agent_verify = StateGraph(State)

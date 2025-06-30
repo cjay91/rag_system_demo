@@ -1,6 +1,6 @@
 from langchain_core.tools import tool
 import ast
-from db import get_database
+from database.db import get_database
 
 db = get_database()
 

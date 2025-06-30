@@ -1,5 +1,5 @@
 from langchain_community.utilities.sql_database import SQLDatabase
-from get_database import get_engine_for_chinook_db
+from database.get_database import get_engine_for_chinook_db
 
 def get_database():
     """

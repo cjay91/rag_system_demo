@@ -1,8 +1,8 @@
 from langgraph.graph import StateGraph, START, END
-from state import State
+from core.state import State
 from music_catalog.music_assistant import music_assistant
 from music_catalog.nodes import music_tool_node
-from memory import checkpointer, in_memory_store
+from core.memory import checkpointer, in_memory_store
 from langchain_core.runnables import RunnableConfig
 
 def should_continue(state: State, config: RunnableConfig):

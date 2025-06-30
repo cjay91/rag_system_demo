@@ -1,6 +1,6 @@
 from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
 from langchain_core.runnables import RunnableConfig
-from state import State
+from core.state import State
 from music_catalog.nodes import llm_with_music_tools
 
 def generate_music_assistant_prompt(memory: str = "None") -> str:

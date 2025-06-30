@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
 from music_catalog.state_graph import music_catalog_subagent
 from invoice_info.tools import invoice_information_subagent
-from Supervisor import supervisor_prebuilt
-from state_graph_end import multi_agent_verify_graph
+from nodes.Supervisor import supervisor_prebuilt
+from state_graph import multi_agent_verify_graph
 
 load_dotenv()
 
@@ -66,20 +66,15 @@ import uuid
 # # Display all messages from the conversation in a formatted way
 # for message in result["messages"]:
 #     message.pretty_print()
-
-thread_id = uuid.uuid4()
-question = "How much was my most recent purchase?"
-config = {"configurable": {"thread_id": thread_id}}
-
-result = multi_agent_verify_graph.invoke({"messages": [HumanMessage(content=question)]}, config=config)
-for message in result["messages"]:
-    message.pretty_print()
+from langgraph.types import Command
 
 
 thread_id = uuid.uuid4()
-question = "How much was my most recent purchase?"
+question = "My phone number is +55 (12) 3923-5555."
 config = {"configurable": {"thread_id": thread_id}}
 
-result = multi_agent_verify_graph.invoke({"messages": [HumanMessage(content=question)]}, config=config)
+# Initialize state with a messages list
+initial_state = {"messages": [HumanMessage(content=question)]}
+result = multi_agent_verify_graph.invoke(initial_state, config=config)
 for message in result["messages"]:
     message.pretty_print()
