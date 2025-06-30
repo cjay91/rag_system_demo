@@ -1,8 +1,10 @@
 from langsmith import utils
 import os 
+import uuid
+from langgraph.types import Command
 from dotenv import load_dotenv
 from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
-from nodes.Supervisor import supervisor_prebuilt
+from agents.Supervisor import supervisor_prebuilt
 from state_graph import multi_agent_verify_graph
 
 load_dotenv()
@@ -11,11 +13,6 @@ os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
 os.environ["LANGSMITH_TRACING"] = os.getenv("LANGSMITH_TRACING")  # Enables LangSmith tracing
 os.environ["LANGSMITH_PROJECT"] = os.getenv("LANGSMITH_PROJECT")
-
-import uuid
-
-from langgraph.types import Command
-
 
 thread_id = uuid.uuid4()
 question = "My phone number is +55 (12) 3923-5555."
