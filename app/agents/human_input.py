@@ -1,12 +1,12 @@
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
 import os
-from core.state import State
+from app.core.state import State
 from langchain_core.runnables import RunnableConfig
 from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
 import ast
-from database.db import get_database
-from llm.llm_provider import llm_provider
+from app.database.db import get_database
+from app.llm.llm_provider import llm_provider
 
 db = get_database()
 

@@ -1,10 +1,10 @@
-from nodes.invoice_info import invoice_information_subagent
-from nodes.music_catelog import music_catalog_subagent
+from app.agents.invoice_info import invoice_information_subagent
+from app.agents.music_catelog import music_catalog_subagent
 from langchain_openai import ChatOpenAI
 import os
-from core.state import State
-from core.memory import checkpointer, in_memory_store
-from llm.llm_provider import llm_provider
+from app.core.state import State
+from app.core.memory import checkpointer, in_memory_store
+from app.llm.llm_provider import llm_provider
 
 llm = llm_provider()
 

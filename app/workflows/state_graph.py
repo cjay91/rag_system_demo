@@ -1,11 +1,11 @@
 from langgraph.graph import StateGraph, START, END
-from core.state import State
-from core.memory import checkpointer, in_memory_store
+from app.core.state import State
+from app.core.memory import checkpointer, in_memory_store
 from langchain_core.runnables import RunnableConfig
-from agents.human_input import human_input, verify_info, should_interrupt
-from agents.Supervisor import supervisor_prebuilt
+from app.agents.human_input import human_input, verify_info, should_interrupt
+from app.agents.Supervisor import supervisor_prebuilt
 from langchain_core.messages import ToolMessage, SystemMessage, HumanMessage
-from database.db import get_database
+from app.database.db import get_database
 
 # Create a new StateGraph instance for the multi-agent workflow with verification
 multi_agent_verify = StateGraph(State)
